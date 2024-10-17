@@ -1,0 +1,25 @@
+import React, { useState } from 'react';
+import TestInput from '../components/TestInput';
+import TestAttempt from '../components/TestAttempt';
+
+const AttemptTestPage = () => {
+  const [testStarted, setTestStarted] = useState(false);
+  const [testInfo, setTestInfo] = useState({ creator: '', code: '' });
+
+  const handleStartTest = (creator, code) => {
+    setTestInfo({ creator, code });
+    setTestStarted(true);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+      {!testStarted ? (
+        <TestInput onStartTest={handleStartTest} />
+      ) : (
+        <TestAttempt testCreator={testInfo.creator} testCode={testInfo.code} />
+      )}
+    </div>
+  );
+};
+
+export default AttemptTestPage;
