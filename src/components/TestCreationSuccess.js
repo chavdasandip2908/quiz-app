@@ -20,10 +20,10 @@ const TestCreationSuccess = ({ testId }) => {
     if (!testId) return null;
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <div className="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto text-center">
-                <h1 className="text-3xl font-bold mb-4 text-gray-800">Test Created Successfully</h1>
-                <p className="text-xl text-gray-600 mb-4">Your Test ID is:</p>
+        <div className="flex flex-col items-center justify-center h-[100vh] bg-gray-900 text-gray-200">
+            <div className="bg-gray-800 rounded-lg shadow-lg p-8 max-w-md mx-auto text-center">
+                <h1 className="text-3xl font-bold mb-4 ">Test Created Successfully</h1>
+                <p className="text-xl  mb-4">Your Test ID is:</p>
 
                 <div
                     onClick={copyToClipboard}
