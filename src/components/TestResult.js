@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const TestResult = ({ result, questions, userAnswers }) => {
+    const navigate = useNavigate();
     return (
         <div className=" bg-gray-800 w-[32rem] max-w-full text-gray-200 rounded-lg shadow-lg p-4 sm:p-6 md:p-8  mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-200 text-center">Test Result</h2>
@@ -44,6 +46,16 @@ const TestResult = ({ result, questions, userAnswers }) => {
                     </div>
                 </motion.div>
             ))}
+
+            <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: questions.length * 0.1 }}
+                onClick={() => navigate('/')}
+                className="hover:shadow-md hover:shadow-gray-500 w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-400 text-lg font-semibold"
+            >
+                Go Back
+            </motion.button>
         </div>
     );
 };
