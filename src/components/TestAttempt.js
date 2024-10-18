@@ -5,7 +5,7 @@ import FinalReview from './FinalReview';
 import TestResult from './TestResult';
 import axios from 'axios';
 
-const TestAttempt = ({ testCreator = "sandy", testCode = "670541df99bb93f06dfbad78" }) => {
+const TestAttempt = ({ testCreator = "", testCode = "" }) => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [markedForReview, setMarkedForReview] = useState([]);
