@@ -74,7 +74,7 @@ const TestCreation = () => {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-[32rem] max-w-full mx-auto">
+    <div className="bg-gray-800 w-[32rem] max-w-full rounded-lg shadow-lg p-6  mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center ">Create New Test</h1>
 
 

@@ -20,16 +20,16 @@ const TestInput = ({ onStartTest }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto"
+      className="bg-gray-800 w-[32rem] max-w-full text-gray-200 rounded-lg shadow-lg p-8  mx-auto"
     >
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Start Your Test</h2>
+      <h2 className="text-3xl font-bold text-gray-200 mb-6 text-center">Start Your Test</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <label htmlFor="testCreator" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="testCreator" className="block text-sm font-medium text-gray-200 mb-1">
             Test Creator
           </label>
           <input
@@ -37,7 +37,7 @@ const TestInput = ({ onStartTest }) => {
             id="testCreator"
             value={testCreator}
             onChange={(e) => setTestCreator(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+            className="w-full px-4 py-2 border focus:outline-none border-gray-500 focus:border-green-300 bg-transparent rounded-md ext-gray-200 transition duration-150 ease-in-out"
             placeholder="Enter test creator's name"
           />
         </motion.div>
@@ -46,7 +46,7 @@ const TestInput = ({ onStartTest }) => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <label htmlFor="testCode" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="testCode" className="block text-sm font-medium text-gray-200 mb-1">
             Test Code
           </label>
           <input
@@ -54,7 +54,7 @@ const TestInput = ({ onStartTest }) => {
             id="testCode"
             value={testCode}
             onChange={(e) => setTestCode(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+            className="w-full px-4 py-2 border focus:outline-none border-gray-500 focus:border-green-300 bg-transparent rounded-md  text-gray-200 transition duration-150 ease-in-out"
             placeholder="Enter test code"
           />
         </motion.div>
