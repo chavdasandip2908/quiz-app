@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 
 const TestInput = ({ onStartTest }) => {
-  const [testCreator, setTestCreator] = useState('sandy');
-  const [testCode, setTestCode] = useState('6705496b8008171b78facc94');
+  const [testCreator, setTestCreator] = useState('');
+  const [testCode, setTestCode] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();

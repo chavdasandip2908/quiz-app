@@ -156,7 +156,7 @@ const TestCreation = () => {
             <select
               value={question.correctAnswer}
               onChange={(e) => updateQuestion(questionIndex, 'correctAnswer', e.target.value)}
-              className="w-full p-2 mb-4 border border-green-500 rounded focus:outline-none focus:border-green-300 bg-transparent text-green-700"
+              className="w-full p-2 mb-4 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent text-green-700"
               style={{
                 backgroundColor: 'transparent', // Light green background
                 color: '#E0E0E0', // Dark green text color
