@@ -11,24 +11,118 @@ const TestCreation = () => {
   }]);
   const [testName, setTestName] = useState('');
   const [testId, setTestId] = useState(null);
+  const [errors, setErrors] = useState({});
 
+  // Add New Question with Validation
   const addNewQuestion = () => {
+    const lastQuestion = questions[questions.length - 1];
+
+    // Check if the question text is filled
+    if (!lastQuestion.text.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`question-${questions.length - 1}`]: 'Please fill in the question text.',
+      }));
+
+      return;
+    }
+
+    // Check if the question has at least two options and all options are filled
+    if (lastQuestion.options.length < 2) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`options-${questions.length - 1}`]: 'Please add at least two options.',
+      }));
+      return;
+    }
+
+    // Check if all options are filled
+    if (lastQuestion.options.some(option => !option.trim())) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`options-${questions.length - 1}`]: 'Please fill in all options.',
+      }));
+      return;
+    }
+
+
+    // Check if correct answer is selected
+    if (!lastQuestion.correctAnswer) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`correctAnswer-${questions.length - 1}`]: 'Please select a correct answer.',
+      }));
+      return;
+    }
+
+    // Clear errors if all validations pass
+    setErrors({});
+
+    // Add a new empty question
     setQuestions([...questions, { text: '', options: [''], correctAnswer: '' }]);
   };
 
+  // Update Question Text with Validation
   const updateQuestion = (index, field, value) => {
     const newQuestions = [...questions];
+
+    if (!value.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`question-${index}`]: 'Please fill in the question text.',
+      }));
+      newQuestions[index][field] = value;
+      return;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [`question-${index}`]: '', // Clear the error for this question
+    }));
+
     newQuestions[index][field] = value;
     setQuestions(newQuestions);
   };
 
+  // Update Option with Validation
   const updateOption = (questionIndex, optionIndex, value) => {
     const newQuestions = [...questions];
+
+    if (!value.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`option-${questionIndex}-${optionIndex}`]: 'Please fill in the option text.',
+      }));
+      newQuestions[questionIndex].options[optionIndex] = value;
+      return;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [`option-${questionIndex}-${optionIndex}`]: '', // Clear error for this option
+    }));
+
     newQuestions[questionIndex].options[optionIndex] = value;
     setQuestions(newQuestions);
   };
 
+  // Add New Option with Validation
   const addOption = (questionIndex) => {
+    const question = questions[questionIndex];
+
+    if (question.options.some(option => !option.trim())) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [`options-${questionIndex}`]: 'Please fill in all options.',
+      }));
+      return;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [`options-${questionIndex}`]: '', // Clear error when valid
+    }));
+
     const newQuestions = [...questions];
     newQuestions[questionIndex].options.push('');
     setQuestions(newQuestions);
@@ -40,33 +134,46 @@ const TestCreation = () => {
     setQuestions(newQuestions);
   };
 
+  // Create Test API Call
   const createTest = async () => {
-    // Here you would typically send the test data to your backend
-    console.log('Test Created:', { name: testName, questions });
-    // You can add logic here to handle the response from the backend
-    try {
-      // Prepare the test data
-      const testData = { name: testName, creator: "creatorId", questions };
+    if (!testName.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        testName: 'Please enter a valid test name.',
+      }));
+      return;
+    }
 
-      // Call the API to create the test using axios
+    if (questions.some(q => !q.text.trim() || q.options.some(option => !option.trim()))) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        general: 'Please ensure all questions and options are filled out.',
+      }));
+      return;
+    }
+
+    console.log('Test Created:', { name: testName, questions });
+
+    try {
+      const testData = { name: testName, creator: "creatorId", questions };
       const response = await axios.post('https://exam-portal-server.onrender.com/api/test/create', testData);
 
-      // Handle success
-      console.log('Test Created Successfully', response.data);
-      // alert('Test created successfully with ID: ' + response.data.code);
       setTestId(response.data.code);
-
     } catch (error) {
-      // Handle error response
       if (error.response) {
-        console.error('Failed to create test:', error.response.data.message);
-        alert('Error creating test: ' + error.response.data.message);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          general: 'Error creating test: ' + error.response.data.message,
+        }));
       } else {
-        console.error('Error:', error.message);
-        alert('An error occurred while creating the test');
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          general: 'An error occurred while creating the test.',
+        }));
       }
     }
   };
+
   if (testId) {
     return (
       <TestCreationSuccess testId={testId} />
@@ -90,6 +197,7 @@ const TestCreation = () => {
           placeholder="Enter Test Name"
           className="w-full p-2 mb-6 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent"
         />
+        {errors.testName && <p className="text-red-500">{errors.testName}</p>}
       </motion.div>
 
       <AnimatePresence>
@@ -107,9 +215,10 @@ const TestCreation = () => {
               value={question.text}
               onChange={(e) => updateQuestion(questionIndex, 'text', e.target.value)}
               placeholder="Enter question text"
-              className="w-full p-2 mb-4 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent"
+              className={`w-full p-2 mb-4 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent ${errors[`question-${questionIndex}`] && 'focus:border-red-700'}`}
               rows="3"
             />
+            {/* {errors[`question-${questionIndex}`] && <p className="text-red-500">{errors[`question-${questionIndex}`]}</p>} */}
 
             <div className="flex flex-wrap justify-between items-baseline ">
               {/* Correct answer select box */}
@@ -138,7 +247,7 @@ const TestCreation = () => {
                   value={option}
                   onChange={(e) => updateOption(questionIndex, optionIndex, e.target.value)}
                   placeholder={`Option ${optionIndex + 1}`}
-                  className="flex-grow p-2 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent"
+                  className={`flex-grow p-2 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent ${errors[`option-${questionIndex}-${optionIndex}`] && 'focus:border-red-700'}`}
                 />
                 <button
                   onClick={() => removeOption(questionIndex, optionIndex)}
@@ -147,7 +256,9 @@ const TestCreation = () => {
                 >
                   X
                 </button>
+                {/* {errors[`option-${questionIndex}-${optionIndex}`] && <p className="text-red-500">{errors[`option-${questionIndex}-${optionIndex}`]}</p>} */}
               </motion.div>
+
             ))}
 
 
@@ -156,7 +267,7 @@ const TestCreation = () => {
             <select
               value={question.correctAnswer}
               onChange={(e) => updateQuestion(questionIndex, 'correctAnswer', e.target.value)}
-              className="w-full p-2 mb-4 border border-gray-500 rounded focus:outline-none focus:border-green-300 bg-transparent text-green-700"
+              className={`w-full p-2 mb-4 border border-gray-500 rounded focus:outline-none focus:border-green-300 ${errors[`correctAnswer-${questionIndex}`] && 'border-red-700'} `}
               style={{
                 backgroundColor: 'transparent', // Light green background
                 color: '#E0E0E0', // Dark green text color
@@ -171,6 +282,9 @@ const TestCreation = () => {
                 </option>
               ))}
             </select>
+            {/* {errors[`correctAnswer-${questionIndex}`] && (
+              <p className="text-red-500">{errors[`correctAnswer-${questionIndex}`]}</p>
+            )} */}
           </motion.div>
         ))}
       </AnimatePresence>
