@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from "./components/Loading";
+import Error from "./components/Error";
 
-// Import your components
-import HomePage from './pages/HomePage';
-import CreateTestPage from './pages/CreateTestPage';
-import AttemptTestPage from './pages/AttemptTestPage';
+
+// Lazy load the components
+const HomePage = lazy(() => import("./pages/HomePage"));
+const CreateTestPage = lazy(() => import("./pages/CreateTestPage"));
+const AttemptTestPage = lazy(() => import("./pages/AttemptTestPage"));
 
 function App() {
+
   return (
     <Router>
-      <div className="App">
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create-test" element={<CreateTestPage />} />
           <Route path="/attempt-test" element={<AttemptTestPage />} />
+          <Route path="/*" element={<Error msg={"Page not Found"} />} />
+
         </Routes>
         <ToastContainer />
-      </div>
+      </Suspense>
     </Router>
   );
 }
