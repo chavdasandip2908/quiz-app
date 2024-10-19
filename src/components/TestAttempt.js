@@ -4,6 +4,8 @@ import ReviewMarkedQuestions from './ReviewMarkedQuestions';
 import FinalReview from './FinalReview';
 import TestResult from './TestResult';
 import axios from 'axios';
+import Loading from './Loading';
+import Error from './Error';
 
 const TestAttempt = ({ testCreator = "", testCode = "" }) => {
   const [questions, setQuestions] = useState([]);
@@ -41,12 +43,12 @@ const TestAttempt = ({ testCreator = "", testCode = "" }) => {
 
   // Loading state
   if (currentStep === 'loading') {
-    return <div>Loading test questions...</div>;
+    return <Loading />
   }
 
   // Error state
   if (currentStep === 'error') {
-    return <div className="text-red-500">{error}</div>;
+    return <Error msg={error} />
   }
 
   const handleAnswer = (index, answer) => {
@@ -94,8 +96,9 @@ const TestAttempt = ({ testCreator = "", testCode = "" }) => {
 
   switch (currentStep) {
     case 'loading':
-      return <div className="text-center">Loading questions...</div>;
-    case 'attempt':
+      return (
+        <Loading />
+      ); case 'attempt':
       return (
 
         <TestNavigation
@@ -133,7 +136,9 @@ const TestAttempt = ({ testCreator = "", testCode = "" }) => {
         />
       );
     default:
-      return <div>Loading...</div>;
+      return (
+        <Loading />
+      );
   }
 };
 
