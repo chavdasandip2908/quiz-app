@@ -17,7 +17,7 @@ const TestAttempt = ({ testCreator = "", testCode = "" }) => {
   useEffect(() => {
     const fetchTest = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/test/${testCode}`);
+        const response = await axios.get(`https://exam-portal-server.onrender.com/api/test/${testCode}`);
         const fetchedQuestions = response.data.test.questions;
 
         // If the response is valid and contains questions

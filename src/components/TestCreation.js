@@ -49,7 +49,7 @@ const TestCreation = () => {
       const testData = { name: testName, creator: "creatorId", questions };
 
       // Call the API to create the test using axios
-      const response = await axios.post('http://localhost:5000/api/test/create', testData);
+      const response = await axios.post('https://exam-portal-server.onrender.com/api/test/create', testData);
 
       // Handle success
       console.log('Test Created Successfully', response.data);
