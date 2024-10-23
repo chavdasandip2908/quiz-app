@@ -1,0 +1,30 @@
+{
+    "name": "QuizMaster - AI-Driven Test Platform",
+    "short_name": "QuizMaster",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#4CAF50",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "description": "A platform where teachers and students can create or attempt quizzes. Users can also generate tests using AI for quick test creation.",
+    "start_url": "/",
+    "scope": "/",
+    "orientation": "portrait",
+    "lang": "en",
+    "categories": [
+        "education",
+        "productivity"
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}
