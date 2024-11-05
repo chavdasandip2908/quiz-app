@@ -251,10 +251,10 @@ const TestCreation = () => {
                 />
                 <button
                   onClick={() => removeOption(questionIndex, optionIndex)}
-                  className={`ml-2 text-red-500 hover:text-red-700 ${question.options.length === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`ml-2 text-3xl text-red-500 hover:text-red-700 ${question.options.length === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
                   disabled={question.options.length === 1} // Disable button if there's only one option
                 >
-                  X
+                  &times;
                 </button>
                 {/* {errors[`option-${questionIndex}-${optionIndex}`] && <p className="text-red-500">{errors[`option-${questionIndex}-${optionIndex}`]}</p>} */}
               </motion.div>
