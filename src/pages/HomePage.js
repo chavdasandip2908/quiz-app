@@ -34,6 +34,21 @@ const HomePage = () => {
             <Button text="Attempt Test" color="blue" />
           </Link>
         </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Link
+            to="/generate-test"
+            className="bg-blue-500 text-white p-3 mt-8 rounded-md hover:bg-blue-600"
+          >
+            Go to Test Generator
+          </Link>
+        </motion.div>
+
+
+
       </div>
     </div>
   );

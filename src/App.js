@@ -10,6 +10,7 @@ import Error from "./components/Error";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const CreateTestPage = lazy(() => import("./pages/CreateTestPage"));
 const AttemptTestPage = lazy(() => import("./pages/AttemptTestPage"));
+const QuestionGenerator = lazy(() => import("./components/QuestionGenerator"));
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/create-test" element={<CreateTestPage />} />
           <Route path="/attempt-test" element={<AttemptTestPage />} />
+          <Route path="/generate-test" element={<QuestionGenerator />} />
           <Route path="/*" element={<Error msg={"Page not Found"} />} />
 
         </Routes>
