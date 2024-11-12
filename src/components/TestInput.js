@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+import StyledButton from './StyledButton';
 
 const TestInput = ({ onStartTest }) => {
   const [testCreator, setTestCreator] = useState('');
@@ -63,12 +64,14 @@ const TestInput = ({ onStartTest }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <button
+
+          <StyledButton type="submit">Submit</StyledButton>
+          {/* <button
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 hover:shadow-md hover:shadow-blue-400"
           >
             Start Test
-          </button>
+          </button> */}
         </motion.div>
       </form>
     </motion.div>
