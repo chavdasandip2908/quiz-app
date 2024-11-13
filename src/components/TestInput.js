@@ -65,7 +65,7 @@ const TestInput = ({ onStartTest }) => {
           transition={{ delay: 0.6 }}
         >
 
-          <StyledButton type="submit">Submit</StyledButton>
+          <StyledButton type="submit" bgColor="rgb(100 116 139)" gradientStartColor="rgba(255,255,255,0.4)" gradientEndColor="rgba(34,197,94,0.5)" hoverGradientStartColor="rgba(255,255,255,0.6)" hoverGradientEndColor="rgba(34,197,94,0.7)" shadowColor="rgba(34,197,94,1)">Submit</StyledButton>
           {/* <button
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 hover:shadow-md hover:shadow-blue-400"
